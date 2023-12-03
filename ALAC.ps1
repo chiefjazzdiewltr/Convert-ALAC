@@ -7,10 +7,10 @@ function Convert-ALAC {
     else {
         Get-ChildItem -Path $DIR -Filter "*.flac" -r | ForEach-Object { 
             if ($(Find-Cover "$DIR\$_.Directory.Name") -eq $true) {
-                ffmpeg -loop 1 -i ".\Cover.png" -i $_ -c:a alac -y "$DIR\$($_.BaseName).m4a"
+                ffmpeg -loop 1 -i ".\Cover.png" -i $_ -c:a alac -ar 44100 -y "$DIR\$($_.BaseName).m4a"
             }
             else {
-                ffmpeg -i $_ -c:a alac -c:v copy -y "$DIR\$($_.BaseName).m4a"
+                ffmpeg -i $_ -c:a alac -c:v copy -ar 44100 -y "$DIR\$($_.BaseName).m4a"
             }
         }
     }
